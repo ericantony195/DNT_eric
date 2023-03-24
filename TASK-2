@@ -1,0 +1,28 @@
+import cv2
+import math
+import numpy as np
+
+from future import print_function
+
+# Capture every n seconds (here, n = 4) 
+
+videoFile = "file_example_MP4_1920_18MG.mp4"
+vidcap = cv2.VideoCapture(videoFile)
+success, image = vidcap.read()
+
+
+seconds = 4
+fps = vidcap.get(cv2.CAP_PROP_FPS)
+multiplier = fps * seconds
+
+
+while success:
+    frameId = int(round(vidcap.get(1)))
+    success, image = vidcap.read()
+
+    if frameId % multiplier == 0:
+        cv2.imwrite("FolderSeconds/frame%d.jpg" % frameId, image)
+        
+vidcap.release()
+print("Complete")
+
